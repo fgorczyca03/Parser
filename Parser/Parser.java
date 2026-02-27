@@ -33,7 +33,7 @@ public class Parser {
     else {
       System.out.println("Line " + currentToken.line + ": Syntax error: " + 
                         currentToken.spelling + " is not expected.");
-      System.exit(0);
+      System.exit(1);
     }
   }
 
@@ -49,7 +49,7 @@ public class Parser {
     if (currentToken.kind != Token.EOT) {
       System.out.println("Line " + currentToken.line + 
                         ": Syntax error: Redundant characters at the end of program.");
-      System.exit(0);
+      System.exit(1);
     }
   }
 
@@ -87,7 +87,7 @@ public class Parser {
       default -> {
           System.out.println("Line " + currentToken.line +
                   ": Syntax error: Invalid statement type.");
-          System.exit(0);
+          System.exit(1);
           }
     }
     accept(Token.RPAREN);
@@ -163,7 +163,7 @@ public class Parser {
     } else {
       System.out.println("Line " + currentToken.line + 
                         ": Syntax error: Invalid expression.");
-      System.exit(0);
+      System.exit(1);
     }
   }
 
@@ -176,7 +176,7 @@ public class Parser {
     } else {
       System.out.println("Line " + currentToken.line + 
                         ": Syntax error: Invalid operator.");
-      System.exit(0);
+      System.exit(1);
     }
   }
 }
