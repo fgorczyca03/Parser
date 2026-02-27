@@ -128,13 +128,25 @@ public class Scanner {
           }
         
       case '+', '-', '*', '/', '<', '>', '=', '!' -> {
+          char firstChar = currentChar;
           takeIt();
-          if (currentChar == '=' && (currentSpelling.toString().equals("<") ||
-                  currentSpelling.toString().equals(">") ||
-                  currentSpelling.toString().equals("!") ||
-                  currentSpelling.toString().equals("="))) {
-              takeIt();
+          if ((firstChar == '<' || firstChar == '>' || firstChar == '!') && currentChar == '=') {
+            takeIt();
+            return Token.OPERATOR;
           }
+
+          if (firstChar == '!') {
+            System.out.println("Line " + line + ": wrong token !");
+            System.exit(1);
+            return Token.NOTHING;
+          }
+
+          if (firstChar == '=' && currentChar == '=') {
+            System.out.println("Line " + line + ": wrong token =");
+            System.exit(1);
+            return Token.NOTHING;
+          }
+
           return Token.OPERATOR;
           }
       default -> {
@@ -150,11 +162,11 @@ public class Scanner {
               return Token.LITERAL;
           } else if (!isGraphic(currentChar)) {
               System.out.println("Line " + line + ": wrong token");
-              System.exit(0);
+              System.exit(1);
               return Token.NOTHING;
           } else {
               System.out.println("Line " + line + ": wrong token " + currentChar);
-              System.exit(0);
+              System.exit(1);
               return Token.NOTHING;
           } }
     }
